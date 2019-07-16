@@ -25,6 +25,18 @@ Hello Closures!
 Hello Closures!
 ```
 
+func applyKTimes(_ k: Int, _ closure: () -> ()) {
+for _ in 1...k {
+closure()
+}
+}
+
+applyKTimes(3, { print("Hello Closures!")})
+
+
+
+
+
 
 ## Question 2
 
@@ -38,6 +50,13 @@ Input: `let numbers = [1, 2, 3, 4, 6, 8, 9, 3, 12, 11]`
 Expected values: `multiples = [3, 6, 9, 3, 12]`
 
 
+let numbers = [1, 2, 3, 4, 6, 8, 9, 3, 12, 11]
+
+let divisibleByThree = numbers.filter {$0 % 3 == 0}
+print(divisibleByThree)
+
+
+
 ## Question 3
 
 Find the largest number from `numbers` and then print it. Use `reduce` to solve this exercise.
@@ -46,6 +65,13 @@ Example:
 Input: `let numbers = [4, 7, 1, 9, 6, 5, 6, 9]`
 
 Output: `9`
+
+
+let numbers = [4, 7, 1, 9, 6, 5, 6, 9, 3]
+
+let maxNum = numbers.reduce(Int.min, max)
+print(maxNum)
+
 
 
 ## Question 4
@@ -58,15 +84,52 @@ Input: `let strings = ["We", "Heart", "Swift"]`
 Output: `"We Heart Swift"`
 
 
+let strings = ["We", "Heart", "Swift"]
+let reducedString = strings.map{"\($0) "}.reduce(""){$0+$1}
+print(reducedString)
+
+
+
 ## Question 5
 
 `let cities = ["Shanghai", "Beijing", "Delhi", "Lagos", "Tianjin", "Karachi", "Karachi", "Tokyo", "Guangzhou", "Mumbai", "Moscow", "São Paulo"]`
 
 a. Use `sortedBy` to sort `cities` in alphabetical order.
 
+let sortedAlphabetical = cities.sorted(by: { $0 < $1} )
+print(sortedAlphabetical)
+
+
+
 b. Use `sortedBy` to sort `cities` alphabetical order of the second character of the city name.
 
+// i dont know how to make the result which is seperate sttings back into an array i spent 60 min trying to do this and have no happy thoughts about it.
+var secondLetter = cities
+print(secondLetter)
+//var secondOrder: [String]
+for x in cities {
+var cities = x.dropFirst()
+//    secondOrder += secondLetter
+print(cities)
+}
+
+
 c. Use `sortedBy` to sort `cities` in order of the length of the city name.
+
+var count = [String : Int]()
+for word in cities {
+count[word] = (count[word] ?? 0) + 1
+}
+let sortedLength = count.sorted { $0.value > $1.value }.map { $0.key }
+print(sortedLength)
+
+var sortedLength = cities.sorted { $0.localizedCaseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending }
+let sortedLength = cities.sorted(by: { $0 < $1} )
+print(sortedLength)
+
+let sortedSecondLetter = sorted(cities, {$0 < $1} )
+print(sortedSecondLetter)
+
 
 
 ## Question 6
@@ -74,6 +137,31 @@ c. Use `sortedBy` to sort `cities` in order of the length of the city name.
 `let citiesWithPopulation: [(String, Int)] = [("Shanghai", 24256800), ("Beijing", 21516000), ("Delhi", 16787941), ("Lagos", 16060303), ("Tianjin", 15200000), ("Karachi", 14910352), ("Karachi", 14160467), ("Tokyo", 13513734), ("Guangzhou", 13080500), ("Mumbai", 12442373), ("Moscow", 12380664), ("São Paulo", 12038175)]`
 
 a. Use `sortedBy` to sort `citiesWithPopulation` in ascending order of population.
+
+//THIS DIDNT WORK
+//let populated = citiesWithPopulation.sorted(by: <)
+//print(populated)
+
+
+//THIS DIDNT WORK
+//let populated = citiesWithPopulation.sorted { (a, b) -> Bool in
+//    return a < b
+//}
+//print(populated)
+
+
+//THIS DIDNT WORK
+//var populated = citiesWithPopulation.sorted(){
+//    $0 > $1
+//}
+//print("max from result: \(populated[0])")
+
+
+//THIS DIDNT WORK
+//func sortFunc(num1: Int, num2: Int) -> Bool {
+//    return num1 < num2
+//}
+
 
 b. Use `sortedBy` to sort `citiesWithPopulation` in reverse alphabetical order of the last character in the city name.
 
